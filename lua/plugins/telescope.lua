@@ -132,4 +132,30 @@ return {
       vim.cmd.colorscheme 'tokyonight-night'
     end,
   },
+  {
+    'otavioschwanck/telescope-alternate',
+    dependencies = { 'nvim-telescope/telescope.nvim' }, -- or { "ibhagwan/fzf-lua" }
+    init = function()
+      vim.g.telescope_alternate = {
+        mappings = {
+          {
+            'app/services/(.*)_services/(.*).rb',
+            { -- alternate from services to contracts / models
+              { 'app/contracts/[1]_contracts/[2].rb', 'Contract' }, -- Adding label to switch
+              { 'app/models/**/*[1].rb', 'Model', true }, -- Ignore create entry (with true)
+            },
+          },
+          { 'app/contracts/(.*)_contracts/(.*).rb', { { 'app/services/[1]_services/[2].rb', 'Service' } } }, -- from contracts to services
+          -- Search anything on helper folder that contains pluralize version of model.
+          --Example: app/models/user.rb -> app/helpers/foo/bar/my_users_helper.rb
+          { 'app/models/(.*).rb', { { 'db/helpers/**/*[1:pluralize]*.rb', 'Helper' } } },
+          { 'app/**/*.rb', { { 'spec/[1].rb', 'Test' } } }, -- Alternate between file and test
+        },
+        presets = { 'rails', 'rspec' }, -- Pre-defined mapping presets
+        picker = 'telescope', -- or 'fzf-lua'
+        open_only_one_with = 'current_pane', -- when just have only possible file, open it with.  Can also be horizontal_split and vertical_split
+        vim.keymap.set('n', '<leader>ll', ':Telescope telescope-alternate alternate_file<Cr>', { desc = '[TELESCOPE] Alternate file' }),
+      }
+    end,
+  },
 }
