@@ -17,10 +17,10 @@ return { -- Autoformat
     notify_on_error = false,
     formatters_by_ft = {
       lua = { 'stylua' },
+      html = { 'prettier' },
       ruby = { 'prettierd' },
       javascript = { 'prettierd' },
       typescript = { 'prettierd' },
-      handlebars = { 'prettierd' },
       css = { 'prettierd' },
       json = { 'prettierd' },
       -- Conform can also run multiple formatters sequentially
@@ -30,10 +30,20 @@ return { -- Autoformat
       -- javascript = { "prettierd", "prettier", stop_after_first = true },
     },
     formatters = {
+      prettier = {
+        command = 'prettier',
+        args = { '--stdin-filepath', '$FILENAME' },
+        stdin = true,
+      },
       prettierd = {
         condition = function(context)
           local filename = context.filename or ''
-          return filename:match '%.rb$' or filename:match '%.js$' or filename:match '%.ts$' or filename:match '%.css$' or filename:match '%.json$'
+          return filename:match '%.rb$'
+            or filename:match '%.js$'
+            or filename:match '%.ts$'
+            or filename:match '%.css$'
+            or filename:match '%.json$'
+            or filename:match '%.erb'
         end,
       },
     },
@@ -52,7 +62,7 @@ return { -- Autoformat
         '*.json',
         '*.lua',
         '*.erb',
-        '*.hbs',
+        '*.html',
       },
       callback = function(args)
         require('conform').format {

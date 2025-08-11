@@ -74,9 +74,14 @@ return {
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
         documentation = { auto_show = false, auto_show_delay_ms = 500 },
       },
+      dependencies = {
+        {
+          'Exafunction/codeium.nvim',
+        },
+      },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
+        default = { 'lsp', 'path', 'snippets', 'lazydev', 'codeium' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
         },
@@ -248,6 +253,25 @@ return {
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
+        solargraph = {
+          cmd = (function()
+            local util = require 'lspconfig.util'
+            local root = vim.fn.getcwd()
+            if util.path.exists(util.path.join(root, 'Gemfile')) then
+              return { 'bundle', 'exec', 'solargraph', 'stdio' }
+            else
+              return { 'solargraph', 'stdio' }
+            end
+          end)(),
+          settings = {
+            solargraph = {
+              diagnostics = true,
+              formatting = true,
+              completion = true,
+              useBundler = false, -- we override `cmd`, so disable Solargraph's internal bundler logic
+            },
+          },
+        },
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
@@ -284,7 +308,17 @@ return {
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+        ensure_installed = {
+          'ts_ls',
+          'eslint',
+          'tailwindcss',
+          'ember',
+          'rust_analyzer',
+          'lua_ls',
+          'solargraph',
+          'emmet_ls',
+          'elixirls',
+        },
         automatic_installation = false,
         handlers = {
           function(server_name)
