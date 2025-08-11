@@ -1,4 +1,4 @@
--- Auto completion and code snippets
+ -- Auto completion and code snippets
 return {
   {
     'hrsh7th/nvim-cmp',
@@ -62,7 +62,7 @@ return {
           ['<C-Space>'] = cmp.mapping.complete(),
         },
         sources = {
-          { name = 'codeium', priority = 1000, max_item_count = 3 },
+          { name = 'codeium' },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'buffer' },
