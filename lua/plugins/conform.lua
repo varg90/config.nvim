@@ -18,6 +18,8 @@ return { -- Autoformat
     formatters_by_ft = {
       lua = { 'stylua' },
       html = { 'prettier' },
+      -- ensure to install gem erb-formatter for the erb_format binary command
+      eruby = { 'erb_format' },
       ruby = { 'prettierd' },
       javascript = { 'prettierd' },
       typescript = { 'prettierd' },
@@ -38,12 +40,7 @@ return { -- Autoformat
       prettierd = {
         condition = function(context)
           local filename = context.filename or ''
-          return filename:match '%.rb$'
-            or filename:match '%.js$'
-            or filename:match '%.ts$'
-            or filename:match '%.css$'
-            or filename:match '%.json$'
-            or filename:match '%.erb'
+          return filename:match '%.rb$' or filename:match '%.js$' or filename:match '%.ts$' or filename:match '%.css$' or filename:match '%.json$'
         end,
       },
     },
