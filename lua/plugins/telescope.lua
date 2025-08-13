@@ -108,6 +108,8 @@ return {
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+
+      vim.keymap.set('n', '<leader>Y', ':%y+<CR>', { desc = 'Yank whole file to clipboard' })
     end,
   },
 
