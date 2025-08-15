@@ -8,7 +8,6 @@ local previewers = require 'telescope.previewers'
 
 function M.call()
   local project_root = vim.fn.getcwd()
-
   local gem_paths = vim.fn.systemlist 'ruby -e "puts Gem.path"'
 
   local search_paths = { project_root }
@@ -19,9 +18,22 @@ function M.call()
   end
 
   local results = {}
+  local allowed_exts = { 'rb', 'erb', 'js', 'css', 'scss', 'html' }
+  local ignored_dirs = { 'doc', 'test', 'spec' }
+
   for _, dir in ipairs(search_paths) do
     if vim.fn.isdirectory(dir) == 1 then
-      local files = vim.fn.globpath(dir, '**/*', false, true)
+      -- Build fd command
+      local fd_cmd = { 'fd', '--type f', '--hidden', '.', vim.fn.shellescape(dir) }
+      for _, ext in ipairs(allowed_exts) do
+        table.insert(fd_cmd, '--extension ' .. ext)
+      end
+      for _, ig in ipairs(ignored_dirs) do
+        table.insert(fd_cmd, '--exclude ' .. ig)
+      end
+
+      -- Join into string and run
+      local files = vim.fn.systemlist(table.concat(fd_cmd, ' '))
       vim.list_extend(results, files)
     end
   end
@@ -65,7 +77,7 @@ function M.call()
         end,
       },
       sorter = sorters.get_generic_fuzzy_sorter(),
-      previewer = previewers.vim_buffer_cat.new {},
+      previewer = previewers.vim_buffer_cat.new {}, -- lazy preview
     })
     :find()
 end
