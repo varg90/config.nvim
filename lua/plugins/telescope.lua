@@ -78,44 +78,8 @@ return {
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>sF', function()
-        local project_root = vim.fn.getcwd()
-        local gem_paths = vim.fn.systemlist 'ruby -e "puts Gem.path"'
-        local search_paths = { project_root }
-        for _, path in ipairs(gem_paths) do
-          if vim.fn.isdirectory(path) == 1 then
-            table.insert(search_paths, path)
-          end
-        end
-
-        local Path = require 'plenary.path'
-        require('telescope.builtin').find_files {
-          search_dirs = search_paths,
-          previewer = true,
-          entry_maker = function(entry)
-            local filename = Path:new(entry):make_relative(project_root)
-            -- If not inside project, shorten to last 3 parts
-            if filename == entry then
-              local parts = vim.split(entry, Path.path.sep)
-              local len = #parts
-              if len > 3 then
-                filename = table.concat({
-                  parts[len - 4],
-                  parts[len - 3],
-                  parts[len - 2],
-                  parts[len - 1],
-                  parts[len],
-                }, Path.path.sep)
-                filename = '…' .. Path.path.sep .. filename
-              else
-                filename = entry
-              end
-            end
-            return require('telescope.make_entry').gen_from_file {}(filename)
-          end,
-          follow = true,
-        }
-      end, { desc = '[S]earch Project [F]iles + Gems' })
+      local telescope_find_project_and_gems = require 'functions.telescope_find_project_and_gems'
+      vim.keymap.set('n', '<leader>sF', telescope_find_project_and_gems.call, { desc = '[S]earch Project [F]iles + Gems' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -124,7 +88,7 @@ return {
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
       vim.keymap.set('n', '<leader>sm', '<cmd>Telescope treesitter<CR>', { desc = 'Search Methods' })
-
+      vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show line diagnostics' })
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
