@@ -6,18 +6,9 @@ function M.setup()
     return
   end
 
-  -- Find project root (use git or cwd)
-  local function get_project_root()
-    local git_dir = vim.fn.finddir('.git', '.;')
-    if git_dir ~= '' then
-      return vim.fn.fnamemodify(git_dir, ':h')
-    else
-      return vim.fn.getcwd()
-    end
-  end
-
-  local db_yml = get_project_root() .. '/config/database.yml'
-  local project_name = vim.fn.fnamemodify(get_project_root(), ':t'):gsub('[^%w%d]', '_')
+  local project_root = require('functions.get_project_root').call
+  local db_yml = project_root .. '/config/database.yml'
+  local project_name = vim.fn.fnamemodify(project_root, ':t'):gsub('[^%w%d]', '_')
 
   if vim.fn.filereadable(db_yml) == 1 then
     local db_script = vim.fn.stdpath 'config' .. '/lua/scripts/list_dbs_from_database_yml.rb'
