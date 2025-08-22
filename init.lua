@@ -16,6 +16,9 @@ end
 ---@type vim.Option
 vim.opt.rtp:prepend(lazypath)
 
+-- 24-bit colors for nvim-notify
+vim.opt.termguicolors = true
+
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run

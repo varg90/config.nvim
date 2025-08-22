@@ -11,6 +11,7 @@ return {
     event = 'VimEnter',
     dependencies = {
       'nvim-lua/plenary.nvim',
+
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
         'nvim-telescope/telescope-fzf-native.nvim',
 
@@ -74,12 +75,15 @@ return {
       pcall(require('telescope').load_extension, 'ui-select')
 
       -- See `:help telescope.builtin`
+      local telescope = require 'telescope'
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+
       local telescope_find_project_and_gems = require 'functions.telescope_find_project_and_gems'
       vim.keymap.set('n', '<leader>sF', telescope_find_project_and_gems.call, { desc = '[S]earch Project [F]iles + Gems' })
+
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -89,6 +93,13 @@ return {
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
       vim.keymap.set('n', '<leader>sm', '<cmd>Telescope treesitter<CR>', { desc = 'Search Methods' })
       vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show line diagnostics' })
+
+      telescope.load_extension 'notify'
+      vim.keymap.set('n', '<leader>n', function()
+        telescope.extensions.notify.notify()
+      end, { desc = '[N]otification history (Telescope)' })
+      vim.keymap.set('n', '<leader>N', '<cmd>Notifications<CR>', { desc = '[N]otifications history' })
+
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
