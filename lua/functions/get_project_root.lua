@@ -1,12 +1,14 @@
 local M = {}
 
 function M.call()
-  local git_dir = vim.fn.finddir('.git', '.;')
-  if git_dir ~= '' then
-    return vim.fn.fnamemodify(git_dir, ':h')
-  else
-    return vim.fn.getcwd()
+  local path = vim.fn.getcwd()
+  while path ~= '/' do
+    if vim.fn.filereadable(path .. '/Gemfile') == 1 then
+      return path
+    end
+    path = vim.fn.fnamemodify(path, ':h') -- go up one directory
   end
+  return vim.fn.getcwd() -- fallback
 end
 
 return M
