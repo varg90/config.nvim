@@ -6,7 +6,7 @@ return { -- Autoformat
     {
       '<leader>f',
       function()
-        require('conform').format { async = true, lsp_format = 'fallback' }
+        require('conform').format { async = true, lsp_fallback = true, lsp_format = 'fallback' }
       end,
       mode = '',
       desc = '[F]ormat buffer',
@@ -14,10 +14,9 @@ return { -- Autoformat
   },
   opts = {
     log_level = vim.log.levels.DEBUG,
-    notify_on_error = false,
+    notify_on_error = true,
     formatters_by_ft = {
       lua = { 'stylua' },
-      html = { 'prettier' },
       -- ensure to install gem erb-formatter for the erb_format binary command
       eruby = { 'erb_format' },
       ruby = { 'prettierd' },
@@ -25,6 +24,9 @@ return { -- Autoformat
       typescript = { 'prettierd' },
       css = { 'prettierd' },
       json = { 'prettierd' },
+      jsonc = { 'prettier' },
+      conf = { 'prettier' },
+      python = { 'ruff_format', 'ruff_fix' },
       -- Conform can also run multiple formatters sequentially
       -- python = { "isort", "black" },
       --
@@ -33,41 +35,13 @@ return { -- Autoformat
     },
     formatters = {
       prettier = {
+        contition = false,
         command = 'prettier',
         args = { '--stdin-filepath', '$FILENAME' },
         stdin = true,
       },
-      prettierd = {
-        condition = function(context)
-          local filename = context.filename or ''
-          return filename:match '%.rb$' or filename:match '%.js$' or filename:match '%.ts$' or filename:match '%.css$' or filename:match '%.json$'
-        end,
-      },
     },
     -- Set up format-on-save
-    format_on_save = false,
+    format_on_save = true,
   },
-  config = function(_, opts)
-    require('conform').setup(opts)
-
-    vim.api.nvim_create_autocmd('BufWritePre', {
-      pattern = {
-        '*.rb',
-        '*.js',
-        '*.ts',
-        '*.css',
-        '*.json',
-        '*.lua',
-        '*.erb',
-        '*.html',
-      },
-      callback = function(args)
-        require('conform').format {
-          bufnr = args.buf,
-          async = false,
-          lsp_fallback = true,
-        }
-      end,
-    })
-  end,
 }

@@ -5,6 +5,13 @@ return {
     'hrsh7th/nvim-cmp',
   },
   config = function()
-    require('codeium').setup {}
+    require('codeium').setup {
+      virtual_text = {
+        filetypes = {
+          markdown = false,
+        },
+        default_filetype_enabled = true,
+      },
+    }
   end,
 }

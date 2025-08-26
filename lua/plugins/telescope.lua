@@ -26,7 +26,7 @@ return {
         end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
-
+      { 'nvim-telescope/telescope-file-browser.nvim' },
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
@@ -82,7 +82,12 @@ return {
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
 
       local telescope_find_project_and_gems = require 'functions.telescope_find_project_and_gems'
-      vim.keymap.set('n', '<leader>sF', telescope_find_project_and_gems.call, { desc = '[S]earch Project [F]iles + Gems' })
+      vim.keymap.set(
+        'n',
+        '<leader>sF',
+        telescope_find_project_and_gems.call,
+        { desc = '[S]earch Project [F]iles + Gems' }
+      )
 
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
@@ -170,7 +175,12 @@ return {
         presets = { 'rails', 'rspec' }, -- Pre-defined mapping presets
         picker = 'telescope', -- or 'fzf-lua'
         open_only_one_with = 'current_pane', -- when just have only possible file, open it with.  Can also be horizontal_split and vertical_split
-        vim.keymap.set('n', '<leader>ll', ':Telescope telescope-alternate alternate_file<Cr>', { desc = '[TELESCOPE] Alternate file' }),
+        vim.keymap.set(
+          'n',
+          '<leader>ll',
+          ':Telescope telescope-alternate alternate_file<Cr>',
+          { desc = '[TELESCOPE] Alternate file' }
+        ),
       }
     end,
   },

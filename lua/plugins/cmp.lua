@@ -1,4 +1,4 @@
- -- Auto completion and code snippets
+-- Auto completion and code snippets
 return {
   {
     'hrsh7th/nvim-cmp',
@@ -30,17 +30,15 @@ return {
         elseif has_words_before() then
           cmp.complete()
         else
-          fallback()
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, true, true), 'n', true)
         end
       end)
 
       vim.keymap.set({ 'i', 's' }, '<S-Tab>', function(fallback)
         if cmp.visible() then
           cmp.select_prev_item()
-        elseif ls.jumpable(-1) then
-          ls.jump(-1)
         else
-          fallback()
+          ls.jump(-1)
         end
       end, { silent = true })
 
@@ -79,6 +77,13 @@ return {
           documentation = cmp.config.window.bordered(),
         },
       }
+
+      require('cmp').setup.filetype('oil', {
+        sources = {
+          { name = 'buffer' },
+          { name = 'path' },
+        },
+      })
     end,
   },
 }
