@@ -26,6 +26,12 @@ return {
       ':call RunLastSpec()<CR>',
       { noremap = true, silent = true, desc = '[T]est [L]ast' }
     )
+    vim.keymap.set(
+      'n',
+      '<leader>bb',
+      require('helpers.add_debug_breakpoint').call,
+      { desc = 'Insert binding.pry [B]reakpoint' }
+    )
 
     vim.g.rspec_command = '!bundle exec rspec {spec}'
     vim.g.rspec_runner = 'vimux'
