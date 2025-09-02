@@ -1,0 +1,9 @@
+return {
+  'klen/nvim-test',
+  config = function()
+    require('nvim-test').setup()
+    require('nvim-test.runners.rspec').setup {
+      args = { '--color', '--format', 'documentation' },
+    }
+  end,
+}
