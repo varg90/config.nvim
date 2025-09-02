@@ -8,11 +8,14 @@ function M.call()
 
   local project_root = require('functions.get_project_root').call()
   local db_yml = project_root .. '/config/database.yml'
-  local project_name = vim.fn.fnamemodify(project_root, ':t'):gsub('[^%w%d]', '_')
+  local project_name =
+    vim.fn.fnamemodify(project_root, ':t'):gsub('[^%w%d]', '_')
 
   if vim.fn.filereadable(db_yml) == 1 then
-    local db_script = vim.fn.stdpath 'config' .. '/lua/scripts/list_dbs_from_database_yml.rb'
-    local output = vim.fn.systemlist { 'ruby', db_script, db_yml, 'development', 'test' }
+    local db_script = vim.fn.stdpath 'config'
+      .. '/lua/scripts/list_dbs_from_database_yml.rb'
+    local output =
+      vim.fn.systemlist { 'ruby', db_script, db_yml, 'development', 'test' }
 
     if not vim.g.dbs then
       vim.g.dbs = {}

@@ -12,7 +12,11 @@ return {
     keys = {
       { '<leader>lt', ':LeetCodeTest<CR>', desc = 'LeetCode: Test code' },
       { '<leader>lr', ':LeetCodeRun<CR>', desc = 'LeetCode: Run code' },
-      { '<leader>ls', ':LeetCodeSubmit<CR>', desc = 'LeetCode: Submit solution' },
+      {
+        '<leader>ls',
+        ':LeetCodeSubmit<CR>',
+        desc = 'LeetCode: Submit solution',
+      },
     },
   },
   lazy = false,

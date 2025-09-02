@@ -24,7 +24,8 @@ function M.call()
   for _, dir in ipairs(search_paths) do
     if vim.fn.isdirectory(dir) == 1 then
       -- Build fd command
-      local fd_cmd = { 'fd', '--type f', '--hidden', '.', vim.fn.shellescape(dir) }
+      local fd_cmd =
+        { 'fd', '--type f', '--hidden', '.', vim.fn.shellescape(dir) }
       for _, ext in ipairs(allowed_exts) do
         table.insert(fd_cmd, '--extension ' .. ext)
       end
