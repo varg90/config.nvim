@@ -77,11 +77,27 @@ return {
       -- See `:help telescope.builtin`
       local telescope = require 'telescope'
       local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set(
+        'n',
+        '<leader>sh',
+        builtin.help_tags,
+        { desc = '[S]earch [H]elp' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>sk',
+        builtin.keymaps,
+        { desc = '[S]earch [K]eymaps' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>sf',
+        builtin.find_files,
+        { desc = '[S]earch [F]iles' }
+      )
 
-      local telescope_find_project_and_gems = require 'functions.telescope_find_project_and_gems'
+      local telescope_find_project_and_gems =
+        require 'functions.telescope_find_project_and_gems'
       vim.keymap.set(
         'n',
         '<leader>sF',
@@ -89,29 +105,81 @@ return {
         { desc = '[S]earch Project [F]iles + Gems' }
       )
 
-      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-      vim.keymap.set('n', '<leader>sm', '<cmd>Telescope treesitter<CR>', { desc = 'Search Methods' })
-      vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show line diagnostics' })
+      vim.keymap.set(
+        'n',
+        '<leader>ss',
+        builtin.builtin,
+        { desc = '[S]earch [S]elect Telescope' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>sw',
+        builtin.grep_string,
+        { desc = '[S]earch current [W]ord' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>sg',
+        builtin.live_grep,
+        { desc = '[S]earch by [G]rep' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>sd',
+        builtin.diagnostics,
+        { desc = '[S]earch [D]iagnostics' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>sr',
+        builtin.resume,
+        { desc = '[S]earch [R]esume' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>s.',
+        builtin.oldfiles,
+        { desc = '[S]earch Recent Files ("." for repeat)' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader><leader>',
+        builtin.buffers,
+        { desc = '[ ] Find existing buffers' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>sm',
+        '<cmd>Telescope treesitter<CR>',
+        { desc = 'Search Methods' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>e',
+        vim.diagnostic.open_float,
+        { desc = 'Show line diagnostics' }
+      )
 
       telescope.load_extension 'notify'
       vim.keymap.set('n', '<leader>n', function()
         telescope.extensions.notify.notify()
       end, { desc = '[N]otification history (Telescope)' })
-      vim.keymap.set('n', '<leader>N', '<cmd>Notifications<CR>', { desc = '[N]otifications history' })
+      vim.keymap.set(
+        'n',
+        '<leader>N',
+        '<cmd>Notifications<CR>',
+        { desc = '[N]otifications history' }
+      )
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
-        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-          winblend = 10,
-          previewer = false,
-        })
+        builtin.current_buffer_fuzzy_find(
+          require('telescope.themes').get_dropdown {
+            winblend = 10,
+            previewer = false,
+          }
+        )
       end, { desc = '[/] Fuzzily search in current buffer' })
 
       -- It's also possible to pass additional configuration options.
@@ -128,53 +196,64 @@ return {
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
 
-      vim.keymap.set('n', '<leader>Y', ':%y+<CR>', { desc = 'Yank whole file to clipboard' })
+      vim.keymap.set(
+        'n',
+        '<leader>Y',
+        ':%y+<CR>',
+        { desc = 'Yank whole file to clipboard' }
+      )
     end,
   },
-
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
+  {
+    'xiantang/darcula-dark.nvim',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+    },
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
-      }
-
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'darcula-dark'
     end,
   },
   {
     'otavioschwanck/telescope-alternate',
-    dependencies = { 'nvim-telescope/telescope.nvim' }, -- or { "ibhagwan/fzf-lua" }
+    dependencies = { 'nvim-telescope/telescope.nvim' },
     init = function()
-      vim.g.telescope_alternate = {
-        mappings = {
+      local rails_mappings =
+        require('mappings.ruby').get_rails_full_stack_mappings()
+
+      local custom_mappings = {
+        {
+          'app/services/(.*)_services/(.*).rb',
           {
-            'app/services/(.*)_services/(.*).rb',
-            { -- alternate from services to contracts / models
-              { 'app/contracts/[1]_contracts/[2].rb', 'Contract' }, -- Adding label to switch
-              { 'app/models/**/*[1].rb', 'Model', true }, -- Ignore create entry (with true)
-            },
+            { 'app/contracts/[1]_contracts/[2].rb', 'Contract' },
+            { 'app/models/**/*[1].rb', 'Model', true },
           },
-          { 'app/contracts/(.*)_contracts/(.*).rb', { { 'app/services/[1]_services/[2].rb', 'Service' } } }, -- from contracts to services
-          -- Search anything on helper folder that contains pluralize version of model.
-          --Example: app/models/user.rb -> app/helpers/foo/bar/my_users_helper.rb
-          { 'app/models/(.*).rb', { { 'db/helpers/**/*[1:pluralize]*.rb', 'Helper' } } },
-          { 'app/**/*.rb', { { 'spec/[1].rb', 'Test' } } }, -- Alternate between file and test
         },
-        presets = { 'rails', 'rspec' }, -- Pre-defined mapping presets
-        picker = 'telescope', -- or 'fzf-lua'
-        open_only_one_with = 'current_pane', -- when just have only possible file, open it with.  Can also be horizontal_split and vertical_split
+        {
+          'app/contracts/(.*)_contracts/(.*).rb',
+          { { 'app/services/[1]_services/[2].rb', 'Service' } },
+        },
+        {
+          'app/models/(.*).rb',
+          { { 'db/helpers/**/*[1:pluralize]*.rb', 'Helper' } },
+        },
+        {
+          'lib/generators/service/(.*)%.rb$',
+          { { 'spec/generator/%1_spec.rb', 'Test' } },
+        },
+        {
+          'spec/generator/(.*)_spec%.rb$',
+          { { 'lib/generators/service/%1.rb', 'Source' } },
+        },
+      }
+
+      vim.g.telescope_alternate = {
+        mappings = require('functions.merge_arrays').call(
+          rails_mappings,
+          custom_mappings
+        ),
+        presets = { 'rails', 'rspec' },
+        picker = 'telescope',
+        open_only_one_with = 'current_pane',
         vim.keymap.set(
           'n',
           '<leader>ll',
