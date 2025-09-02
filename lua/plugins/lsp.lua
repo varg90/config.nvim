@@ -31,7 +31,7 @@ return {
           if vim.uv.fs_stat(root .. '/Gemfile') then
             return { 'bundle', 'exec', 'ruby-lsp' }
           else
-            return { 'ruby-lsp' }
+            return { vim.fn.expand '$HOME/.rbenv/shims/ruby-lsp' }
           end
         end)(),
         capabilities = capabilities,
@@ -133,10 +133,12 @@ return {
             },
           },
         },
+        stylua = {},
       }
 
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, { 'stylua' })
+      local ensure_installed = vim.tbl_filter(function(name)
+        return servers[name].mason ~= false
+      end, vim.tbl_keys(servers))
       require('mason-tool-installer').setup {
         ensure_installed = ensure_installed,
       }
