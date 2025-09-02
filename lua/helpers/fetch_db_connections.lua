@@ -6,7 +6,7 @@ function M.call()
     return
   end
 
-  local project_root = require('functions.get_project_root').call()
+  local project_root = require('helpers.get_project_root').call()
   local db_yml = project_root .. '/config/database.yml'
   local project_name =
     vim.fn.fnamemodify(project_root, ':t'):gsub('[^%w%d]', '_')

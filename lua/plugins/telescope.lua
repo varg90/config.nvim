@@ -97,7 +97,7 @@ return {
       )
 
       local telescope_find_project_and_gems =
-        require 'functions.telescope_find_project_and_gems'
+        require 'helpers.telescope_find_project_and_gems'
       vim.keymap.set(
         'n',
         '<leader>sF',
@@ -247,7 +247,7 @@ return {
       }
 
       vim.g.telescope_alternate = {
-        mappings = require('functions.merge_arrays').call(
+        mappings = require('helpers.merge_arrays').call(
           rails_mappings,
           custom_mappings
         ),

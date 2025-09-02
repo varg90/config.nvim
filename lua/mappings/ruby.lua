@@ -1,6 +1,6 @@
 local M = {}
 
-local mergeArrays = require('functions.merge_arrays').call
+local mergeArrays = require('helpers.merge_arrays').call
 
 function M.generate_spec_mapping(base_path, mapping)
   return {

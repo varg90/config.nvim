@@ -19,11 +19,11 @@ return {
     vim.g.db_ui_auto_execute_table_helpers = 1
 
     vim.keymap.set('n', '<leader>lD', function()
-      require('functions.fetch_db_connections').call()
+      require('helpers.fetch_db_connections').call()
       vim.cmd 'DBUI'
     end, { desc = 'Toggle [D]adBod UI' })
     vim.keymap.set('n', '<leader>ld', function()
-      require('functions.fetch_db_connections').call()
+      require('helpers.fetch_db_connections').call()
       vim.cmd 'DBUIToggle'
     end, { desc = 'Toggle [D]adBod UI' })
   end,
