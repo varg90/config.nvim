@@ -10,16 +10,8 @@ return {
       }
     )
     vim.keymap.set(
-      'n',
-      '<leader>X',
-      '<cmd>lua require("spectre").open_visual({select_word=true})<CR>',
-      {
-        desc = 'Search current word',
-      }
-    )
-    vim.keymap.set(
       'v',
-      '<leader>F',
+      '<leader>R',
       '<esc><cmd>lua require("spectre").open_visual()<CR>',
       {
         desc = 'Search current word',
