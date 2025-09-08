@@ -3,7 +3,7 @@ return {
   init = function()
     vim.keymap.set(
       'n',
-      '<leader>F',
+      '<leader>R',
       '<cmd>lua require("spectre").toggle()<CR>',
       {
         desc = 'Toggle Spectre',
@@ -11,7 +11,7 @@ return {
     )
     vim.keymap.set(
       'n',
-      '<leader>f',
+      '<leader>X',
       '<cmd>lua require("spectre").open_visual({select_word=true})<CR>',
       {
         desc = 'Search current word',
@@ -19,7 +19,7 @@ return {
     )
     vim.keymap.set(
       'v',
-      '<leader>f',
+      '<leader>F',
       '<esc><cmd>lua require("spectre").open_visual()<CR>',
       {
         desc = 'Search current word',

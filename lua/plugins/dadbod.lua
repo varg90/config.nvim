@@ -21,7 +21,7 @@ return {
     vim.keymap.set('n', '<leader>lD', function()
       require('helpers.fetch_db_connections').call()
       vim.cmd 'DBUI'
-    end, { desc = 'Toggle [D]adBod UI' })
+    end, { desc = 'Run [D]adBod UI' })
     vim.keymap.set('n', '<leader>ld', function()
       require('helpers.fetch_db_connections').call()
       vim.cmd 'DBUIToggle'
