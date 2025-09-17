@@ -31,6 +31,7 @@ return { -- Autoformat
       jsonc = { 'prettier' },
       conf = { 'prettier' },
       python = { 'ruff_format', 'ruff_fix' },
+      go = { 'gofmt' },
       -- Conform can also run multiple formatters sequentially
       -- python = { "isort", "black" },
       --

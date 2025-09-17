@@ -153,6 +153,7 @@ return {
           'lua_ls',
           'emmet_ls',
           'elixirls',
+          'gopls',
         },
         automatic_installation = false,
         handlers = {

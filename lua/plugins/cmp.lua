@@ -86,13 +86,6 @@ return {
           documentation = cmp.config.window.bordered(),
         },
       }
-
-      require('cmp').setup.filetype('oil', {
-        sources = {
-          { name = 'buffer' },
-          { name = 'path' },
-        },
-      })
     end,
   },
 }

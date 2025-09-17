@@ -33,7 +33,12 @@ return {
       { desc = 'Insert binding.pry [B]reakpoint' }
     )
 
-    vim.g.rspec_command = '!bundle exec rspec {spec}'
+    vim.g.rspec_command =
+      '!bundle exec rspec --color --format documentation {spec}'
     vim.g.rspec_runner = 'vimux'
+    vim.g.VimuxUseNearestPane = 0
+    vim.g.VimuxVerticalSplit = 1
+    vim.g.VimuxVerticalSplitWidth = 80
+    vim.g.VimuxRunnerType = 'pane'
   end,
 }
