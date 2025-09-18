@@ -19,6 +19,10 @@ vim.o.number = true
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
+-- Add winpos and sessionoptions for auto-session plugin
+vim.o.sessionoptions =
+  'blank,buffers,curdir,folds,help,tabpages,winsize,terminal,winpos,localoptions'
+
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
 

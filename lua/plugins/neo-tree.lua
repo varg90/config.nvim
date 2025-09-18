@@ -10,13 +10,10 @@ return {
     lazy = false, -- neo-tree will lazily load itself
     config = function()
       require('neo-tree').setup {
-        vim.keymap.set('n', '<leader>O', function()
-          require('neo-tree.command').execute { toggle = true }
-        end, { desc = 'T[O]ggle NeoTree' }),
-
         window = {
-          width = 30,
+          width = 40,
         },
+        -- hijack_netrw_behavior = 'disabled',
         filesystem = {
           filtered_items = {
             hide_dotfiles = false,
@@ -32,5 +29,9 @@ return {
         },
       }
     end,
+
+    vim.keymap.set('n', '<leader>O', function()
+      require('neo-tree.command').execute { toggle = true }
+    end, { desc = 'T[O]ggle NeoTree' }),
   },
 }
