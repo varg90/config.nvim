@@ -22,7 +22,6 @@ return {
             hide_by_name = {
               '.DS_Store',
               '.git',
-              '.github',
               '.idea',
               '.ruby-lsp',
             },

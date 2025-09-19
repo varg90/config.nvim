@@ -7,9 +7,9 @@ return {
   ---@module "auto-session"
   ---@type AutoSession.Config
   opts = {
-    allowed_dirs = {
-      vim.fn.expand '~/.config',
-      vim.fn.expand '~/Projects',
+    allowed_patterns = {
+      '~/.config/*',
+      '~/Projects/*',
     },
     -- switch sessions between git branches
     auto_session_use_git_branch = true,
