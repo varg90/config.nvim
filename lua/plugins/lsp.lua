@@ -31,7 +31,7 @@ return {
           if vim.uv.fs_stat(root .. '/Gemfile') then
             return { 'bundle', 'exec', 'ruby-lsp' }
           else
-            return { vim.fn.expand '$HOME/.rbenv/shims/ruby-lsp' }
+            return { vim.fn.exepath 'ruby-lsp' }
           end
         end)(),
         capabilities = capabilities,
