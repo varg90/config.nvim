@@ -1,22 +1,17 @@
 return {
   {
+
     'neovim/nvim-lspconfig',
     dependencies = {
       {
         'mason-org/mason.nvim',
         opts = {
-          ensure_installed = {
-            'prettier',
-            'solargraph',
-            'eslint',
-            'tailwindcss',
-            'ts_ls',
-          },
+          ensure_installed = { 'prettier', 'eslint', 'tailwindcss', 'ts_ls' },
         },
       },
       {
         'mason-org/mason-lspconfig.nvim',
-        opts = { ensure_installed = { 'solargraph', 'eslint' } },
+        opts = { ensure_installed = { 'eslint' } },
       },
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       { 'j-hui/fidget.nvim', opts = {} },
@@ -30,17 +25,17 @@ return {
         cmp_nvim_lsp.default_capabilities()
       )
 
-      -- require('lspconfig').ruby_lsp.setup {
-      --   cmd = (function()
-      --     local root = vim.loop.cwd()
-      --     if vim.uv.fs_stat(root .. '/Gemfile') then
-      --       return { 'bundle', 'exec', 'ruby-lsp' }
-      --     else
-      --       return { vim.fn.expand '$HOME/.rbenv/shims/ruby-lsp' }
-      --     end
-      --   end)(),
-      --   capabilities = capabilities,
-      -- }
+      require('lspconfig').ruby_lsp.setup {
+        cmd = (function()
+          local root = vim.loop.cwd()
+          if vim.uv.fs_stat(root .. '/Gemfile') then
+            return { 'bundle', 'exec', 'ruby-lsp' }
+          else
+            return { vim.fn.expand '$HOME/.rbenv/shims/ruby-lsp' }
+          end
+        end)(),
+        capabilities = capabilities,
+      }
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
@@ -128,27 +123,8 @@ return {
       }
 
       local servers = {
-        -- ruby_lsp = {
-        --   mason = false,
-        -- },
-        solargraph = {
-          cmd = (function()
-            local util = require 'lspconfig.util'
-            local root = vim.fn.getcwd()
-            if util.path.exists(util.path.join(root, 'Gemfile')) then
-              return { 'bundle', 'exec', 'solargraph', 'stdio' }
-            else
-              return { 'solargraph', 'stdio' }
-            end
-          end)(),
-          settings = {
-            solargraph = {
-              diagnostics = true,
-              formatting = true,
-              completion = true,
-              useBundler = false,
-            },
-          },
+        ruby_lsp = {
+          mason = false,
         },
         lua_ls = {
           settings = {
