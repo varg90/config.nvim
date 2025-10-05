@@ -69,7 +69,6 @@ return {
           ['<C-Space>'] = cmp.mapping.complete(),
         },
         sources = {
-          { name = 'codeium' },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'buffer' },
@@ -77,9 +76,6 @@ return {
         preselect = 'item',
         completion = {
           completeopt = 'menu,menuone,noinsert',
-        },
-        formatting = {
-          format = lspkind.cmp_format { symbol_map = { Codeium = '' } },
         },
         window = {
           completion = cmp.config.window.bordered(),
