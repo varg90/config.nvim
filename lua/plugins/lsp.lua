@@ -71,12 +71,6 @@ return {
           vim.keymap.set('n', '<leader>vh', function()
             vim.diagnostic.open_float()
           end, opts '[LSP] Open float')
-          vim.keymap.set('n', '[d', function()
-            vim.diagnostic.goto_next()
-          end, opts '[LSP] Goto next')
-          vim.keymap.set('n', ']d', function()
-            vim.diagnostic.goto_prev()
-          end, opts '[LSP] Goto prev')
           vim.keymap.set('n', '<leader>ve', function()
             vim.lsp.buf.references()
           end, opts '[LSP] References')
@@ -86,12 +80,6 @@ return {
           vim.keymap.set('i', '<c-h>', function()
             vim.lsp.buf.signature_help()
           end, opts '[LSP] Signature help')
-          vim.keymap.set('n', '<leader>vo', function()
-            vim.lsp.buf.execute_command {
-              command = '_typescript.organizeImports',
-              arguments = { vim.fn.expand '%:p' },
-            }
-          end, opts '[LSP] Organize imports')
         end,
       })
 
