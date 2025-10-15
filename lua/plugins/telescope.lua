@@ -60,7 +60,7 @@ return {
           mappings = {
             i = { ['<c-enter>'] = 'to_fuzzy_refine' },
           },
-          file_ignore_patterns = { '.git/', 'node_modules/' },
+          file_ignore_patterns = { '.git/', 'node_modules/', 'vendor/' },
         },
         pickers = {
           find_files = {

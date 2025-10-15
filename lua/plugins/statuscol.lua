@@ -5,7 +5,14 @@ return {
     require('statuscol').setup {
       setopt = true,
       segments = {
-        { text = { '%s' }, click = 'v:lua.ScSa' }, -- sign column
+        {
+          text = {
+            function(args)
+              return string.format('%2d ', args.relnum)
+            end,
+          },
+          click = 'v:lua.ScRa',
+        },
         {
           text = {
             function(args)
@@ -13,14 +20,6 @@ return {
             end,
           },
           click = 'v:lua.ScLa',
-        },
-        {
-          text = {
-            function(args)
-              return string.format('%3d ', args.relnum)
-            end,
-          },
-          click = 'v:lua.ScRa',
         },
       },
     }
