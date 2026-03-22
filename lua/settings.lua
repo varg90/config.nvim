@@ -1,3 +1,6 @@
+-- Ensure rbenv shims are on PATH so ruby/bundle resolve correctly
+vim.env.PATH = vim.env.HOME .. '/.rbenv/shims:' .. vim.env.HOME .. '/.rbenv/bin:' .. vim.env.PATH
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -90,3 +93,20 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 vim.opt.smartindent = true
+
+vim.opt.path = vim.opt.path + {
+  'app/models',
+  'app/controllers',
+  'app/views',
+  'app/helpers',
+  'app/services',
+  'app/mailers',
+  'app/jobs',
+  'app/decorators',
+  'app/components',
+  'app/policies',
+  'app/serializers',
+  'app/validators',
+  'lib',
+  'spec',
+}

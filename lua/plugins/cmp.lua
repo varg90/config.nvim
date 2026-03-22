@@ -10,7 +10,6 @@ return {
       {
         'L3MON4D3/LuaSnip',
         version = 'v2.*',
-        build = 'make install_jsregexp',
       },
     },
     init = function()
@@ -69,7 +68,6 @@ return {
           ['<C-Space>'] = cmp.mapping.complete(),
         },
         sources = {
-          { name = 'codeium' },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'buffer' },
@@ -79,7 +77,7 @@ return {
           completeopt = 'menu,menuone,noinsert',
         },
         formatting = {
-          format = lspkind.cmp_format { symbol_map = { Codeium = '' } },
+          format = lspkind.cmp_format {},
         },
         window = {
           completion = cmp.config.window.bordered(),

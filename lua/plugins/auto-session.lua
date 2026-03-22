@@ -24,6 +24,6 @@ return {
     log_level = 'info',
 
     pre_save_cmds = { 'Neotree close' },
-    post_restore_cmds = { 'Neotree show' },
+    post_restore_cmds = {},
   },
 }
