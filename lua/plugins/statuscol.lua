@@ -6,6 +6,10 @@ return {
       setopt = true,
       segments = {
         {
+          sign = { namespace = { 'gitsigns_signs_', 'gitsigns_signs_staged' }, maxwidth = 1 },
+          click = 'v:lua.ScSa',
+        },
+        {
           text = {
             function(args)
               return string.format('%2d ', args.relnum)
