@@ -7,6 +7,7 @@ return {
     'RRethy/nvim-treesitter-endwise',
     'nvim-treesitter/nvim-treesitter-context',
     'nvim-treesitter/nvim-treesitter-textobjects',
+    'windwp/nvim-ts-autotag',
   },
   opts = {
     ensure_installed = {
@@ -32,16 +33,23 @@ return {
     },
     indent = { enable = true, disable = { 'ruby' } },
     endwise = { enable = true },
+    autotag = { enable = true },
     textobjects = {
       select = {
         enable = true,
-        lookahead = true, -- jump forward automatically like `f`
+        lookahead = true,
         keymaps = {
-          -- Blocks include functions, if/else, while etc
           ['ab'] = '@block.outer',
           ['ib'] = '@block.inner',
           ['af'] = '@function.outer',
           ['if'] = '@function.inner',
+          ['ac'] = '@class.outer',
+          ['ic'] = { query = '@class.inner', desc = 'Select inner part of a class' },
+          ['as'] = { query = '@scope', query_group = 'locals', desc = 'Select language scope' },
+        },
+        selection_modes = {
+          ['@function.outer'] = 'V',
+          ['@class.outer'] = '<C-v>',
         },
       },
       move = {

@@ -54,7 +54,7 @@ vim.o.smartcase = true
 vim.o.signcolumn = 'yes'
 
 -- Decrease update time
-vim.o.updatetime = 250
+vim.o.updatetime = 50
 
 -- Decrease mapped sequence wait time
 vim.o.timeoutlen = 300
@@ -93,6 +93,15 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 vim.opt.smartindent = true
+
+vim.opt.swapfile = false
+vim.opt.backup = false
+
+vim.opt.spell = true
+vim.opt.spelloptions = 'camel'
+vim.opt.spelllang = 'en_us'
+
+vim.opt.langmap = [[фa,иb,сc,вd,уe,аf,пg,рh,шi,оj,лk,дl,ьm,тn,щo,зp,йq,кr,ыs,еt,гu,мv,цw,чx,нy,яz,ФA,ИB,СC,ВD,УE,АF,ПG,РH,ШI,ОJ,ЛK,ДL,ЬM,ТN,ЩO,ЗP,ЙQ,КR,ЫS,ЕT,ГU,МV,ЦW,ЧX,НY,ЯZ]]
 
 vim.opt.path = vim.opt.path + {
   'app/models',

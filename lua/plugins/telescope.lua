@@ -54,7 +54,7 @@ return {
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = 'Find existing buffers' })
+      vim.keymap.set('n', '<leader>E', builtin.buffers, { desc = 'Find existing buffers' })
       vim.keymap.set('n', '<leader>sm', '<cmd>Telescope treesitter<CR>', { desc = '[S]earch [M]ethods' })
       vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show line diagnostics' })
       vim.keymap.set('n', '<leader>n', function()

@@ -29,11 +29,23 @@ return {
       -- Apply capabilities to all servers
       vim.lsp.config('*', { capabilities = capabilities })
 
-      -- ruby_lsp is not managed by mason — enable it manually with rbenv bundle
+      -- ruby_lsp is not managed by mason — resolve path via mise
+      local function ruby_lsp_cmd()
+        local handle = io.popen 'mise where ruby 2>/dev/null'
+        if handle then
+          local ruby_dir = handle:read '*l'
+          handle:close()
+          if ruby_dir and ruby_dir ~= '' then
+            return { ruby_dir .. '/bin/ruby-lsp' }
+          end
+        end
+        return { 'ruby-lsp' }
+      end
+
       vim.lsp.config('ruby_lsp', {
-        cmd = vim.uv.fs_stat(vim.loop.cwd() .. '/Gemfile')
-          and { vim.env.HOME .. '/.rbenv/shims/bundle', 'exec', 'ruby-lsp' }
-          or { vim.fn.exepath 'ruby-lsp' },
+        cmd = ruby_lsp_cmd(),
+        filetypes = { 'ruby', 'eruby' },
+        root_markers = { 'Gemfile', '.git' },
       })
       vim.lsp.enable('ruby_lsp')
 
@@ -62,6 +74,8 @@ return {
           vim.keymap.set('n', 'gr', vim.lsp.buf.rename, opts '[LSP] Rename')
           vim.keymap.set('i', '<c-h>', vim.lsp.buf.signature_help, opts '[LSP] Signature help')
           vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts '[LSP] Go to declaration')
+          vim.keymap.set('n', '[d', vim.diagnostic.goto_next, opts '[LSP] Next diagnostic')
+          vim.keymap.set('n', ']d', vim.diagnostic.goto_prev, opts '[LSP] Prev diagnostic')
         end,
       })
 
