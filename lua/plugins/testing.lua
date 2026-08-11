@@ -10,7 +10,8 @@ return {
       vim.keymap.set('n', '<leader>bb', require('helpers.add_debug_breakpoint').call, { desc = 'Insert binding.pry [B]reakpoint' })
 
       vim.g['test#strategy'] = 'vimux'
-      vim.g['test#ruby#rspec#executable'] = vim.env.HOME .. '/.rbenv/shims/bundle exec rspec'
+      -- спеки гоняем внутри контейнера: там ruby, гемы и база
+      vim.g['test#ruby#rspec#executable'] = 'docker compose exec insales bundle exec rspec'
       vim.g['test#ruby#rspec#options'] = '--force-color --format documentation'
 
       vim.g.VimuxUseNearestPane = 0
