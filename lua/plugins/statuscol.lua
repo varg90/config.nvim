@@ -4,6 +4,7 @@ return {
   config = function()
     require('statuscol').setup {
       setopt = true,
+      ft_ignore = { 'neo-tree' },
       segments = {
         {
           sign = { namespace = { 'gitsigns_signs_', 'gitsigns_signs_staged' }, maxwidth = 1 },

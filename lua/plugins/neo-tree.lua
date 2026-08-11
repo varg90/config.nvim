@@ -11,6 +11,7 @@ return {
     config = function()
       require('neo-tree').setup {
         window = {
+          position = 'right',
           width = 40,
         },
         -- hijack_netrw_behavior = 'disabled',
@@ -28,6 +29,16 @@ return {
           },
         },
       }
+
+      -- номера строк глобальные, в дереве они не нужны
+      -- (statuscolumn гасит сам statuscol через ft_ignore)
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'neo-tree',
+        callback = function()
+          vim.opt_local.number = false
+          vim.opt_local.relativenumber = false
+        end,
+      })
     end,
 
     vim.keymap.set('n', '<leader>O', function()
