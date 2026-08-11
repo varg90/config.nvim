@@ -23,7 +23,7 @@ return { -- Autoformat
       lua = { 'stylua' },
       -- ensure to install gem erb-formatter for the erb_format binary command
       eruby = { 'erb_format' },
-      ruby = { 'prettierd' },
+      -- ruby: formatting handled by ruby-lsp (rubocop/standardrb addon) via lsp_fallback
       javascript = { 'prettierd' },
       typescript = { 'prettierd' },
       css = { 'prettierd' },
