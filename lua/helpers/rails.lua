@@ -1,7 +1,13 @@
 local M = {}
 
+local function try(cmd)
+  if not pcall(vim.cmd, cmd) then
+    vim.notify(cmd .. ': файл не найден', vim.log.levels.WARN)
+  end
+end
+
 function M.goto_alternate()
-  vim.cmd 'A'
+  try('A')
 end
 
 function M.goto_related()
@@ -21,56 +27,56 @@ function M.goto_related()
   }
   for suffix, cmd in pairs(rails_commands) do
     if filename:find(suffix .. '$') then
-      vim.cmd(cmd)
+      try(cmd)
       return
     end
   end
-  vim.cmd 'A'
+  try('A')
 end
 
 function M.goto_model()
-  vim.cmd 'Emodel'
+  try('Emodel')
 end
 
 function M.goto_controller()
-  vim.cmd 'Econtroller'
+  try('Econtroller')
 end
 
 function M.goto_view()
-  vim.cmd 'Eview'
+  try('Eview')
 end
 
 function M.goto_helper()
-  vim.cmd 'Ehelper'
+  try('Ehelper')
 end
 
 function M.goto_service()
-  vim.cmd 'Eservice'
+  try('Eservice')
 end
 
 function M.goto_job()
-  vim.cmd 'Ejob'
+  try('Ejob')
 end
 
 function M.goto_spec()
   local filename = vim.fn.expand '%:t'
   if filename:find '_spec.rb$' then
-    vim.cmd 'A'
+    try('A')
   else
-    vim.cmd 'As'
+    try('As')
   end
 end
 
 function M.goto_routes()
-  vim.cmd 'Routes'
+  try('Routes')
 end
 
 function M.goto_migration()
-  vim.cmd 'Emigration'
+  try('Emigration')
 end
 
 function M.goto_schema()
-  vim.cmd 'Dsschema'
+  try('Dsschema')
 end
 
 return M
