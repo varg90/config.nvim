@@ -66,6 +66,7 @@ return {
           ['<C-e>'] = cmp.mapping.abort(),
           ['<C-y>'] = cmp.mapping.confirm { select = true },
           ['<C-Space>'] = cmp.mapping.complete(),
+          ['<C-@>'] = cmp.mapping.complete(),
         },
         sources = {
           { name = 'nvim_lsp' },
