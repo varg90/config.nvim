@@ -17,9 +17,16 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' })
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'Move selection down' })
 
--- Keep cursor centered when scrolling/searching
-vim.keymap.set('n', '<C-d>', '<C-d>zz')
-vim.keymap.set('n', '<C-u>', '<C-u>zz')
+-- Keep cursor centered when scrolling/searching.
+-- Half-page scroll and centering in one winrestview call = one redraw, no visible jump.
+local function scroll_half_page_centered(direction)
+  local half = math.floor(vim.api.nvim_win_get_height(0) / 2)
+  local line = vim.fn.line('.') + direction * half
+  line = math.max(1, math.min(line, vim.fn.line('$')))
+  vim.fn.winrestview({ lnum = line, topline = math.max(1, line - half) })
+end
+vim.keymap.set('n', '<C-d>', function() scroll_half_page_centered(1) end)
+vim.keymap.set('n', '<C-u>', function() scroll_half_page_centered(-1) end)
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
 

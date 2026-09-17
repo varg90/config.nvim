@@ -15,6 +15,7 @@ return {
       'c',
       'go',
       'ruby',
+      'slim',
       'embedded_template',
       'yaml',
       'json',
@@ -72,6 +73,7 @@ return {
     },
   },
   config = function(_, opts)
+    vim.filetype.add { extension = { slim = 'slim' } }
     require('nvim-treesitter.configs').setup(opts)
 
     local function copy_ruby_class_name()
@@ -103,6 +105,13 @@ return {
       'yC',
       copy_ruby_class_name,
       { desc = '[Y]ank [C]lass reference' }
+    )
+
+    vim.keymap.set(
+      'n',
+      '<Leader>cc',
+      copy_ruby_class_name,
+      { desc = '[C]opy [C]lass reference' }
     )
   end,
 }

@@ -103,7 +103,7 @@ vim.opt.spelllang = 'en_us,ru'
 vim.opt.spellfile = vim.fn.stdpath('config') .. '/spell/en.utf-8.add'
 vim.opt.spellcapcheck = ''
 
-vim.opt.langmap = [[фa,иb,сc,вd,уe,аf,пg,рh,шi,оj,лk,дl,ьm,тn,щo,зp,йq,кr,ыs,еt,гu,мv,цw,чx,нy,яz,ФA,ИB,СC,ВD,УE,АF,ПG,РH,ШI,ОJ,ЛK,ДL,ЬM,ТN,ЩO,ЗP,ЙQ,КR,ЫS,ЕT,ГU,МV,ЦW,ЧX,НY,ЯZ]]
+vim.opt.langmap = [[фa,иb,сc,вd,уe,аf,пg,рh,шi,оj,лk,дl,ьm,тn,щo,зp,йq,кr,ыs,еt,гu,мv,цw,чx,нy,яz,ФA,ИB,СC,ВD,УE,АF,ПG,РH,ШI,ОJ,ЛK,ДL,ЬM,ТN,ЩO,ЗP,ЙQ,КR,ЫS,ЕT,ГU,МV,ЦW,ЧX,НY,ЯZ,э',Э",ж\;,Ж:,б\,,Б<,ю.,Ю>,х[,Х{,ъ],Ъ},ё`,Ё~,./,\,?]]
 
 vim.opt.path = vim.opt.path + {
   'app/models',

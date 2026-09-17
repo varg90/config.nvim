@@ -42,10 +42,28 @@ return {
         return { 'ruby-lsp' }
       end
 
+      -- insales и все его worktree: ruby-lsp в контейнере из образа главного репо
+      local insales_git_dir = vim.fn.expand '~/Projects/insales_workpace/insales/.git'
+      local function insales_root(root_dir)
+        local git = vim.system({ 'git', '-C', root_dir, 'rev-parse', '--path-format=absolute', '--git-common-dir' }):wait()
+        return vim.trim(git.stdout or '') == insales_git_dir
+      end
+
+      local host_ruby_lsp_cmd = ruby_lsp_cmd()
+
       vim.lsp.config('ruby_lsp', {
-        cmd = ruby_lsp_cmd(),
+        cmd = function(dispatchers, config)
+          local cmd = host_ruby_lsp_cmd
+          if insales_root(config.root_dir) then
+            cmd = { vim.fn.expand '~/.local/bin/insales-ruby-lsp' }
+          end
+          return vim.lsp.rpc.start(cmd, dispatchers, { cwd = config.root_dir })
+        end,
         filetypes = { 'ruby', 'eruby' },
         root_markers = { 'Gemfile', '.git' },
+        init_options = {
+          addonSettings = { ['Ruby LSP Rails'] = { enablePendingMigrationsPrompt = false } },
+        },
       })
       vim.lsp.enable('ruby_lsp')
 
@@ -64,6 +82,7 @@ return {
           end
 
           vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts '[LSP] Go to definition')
+          vim.keymap.set('n', '<C-LeftMouse>', '<LeftMouse><cmd>lua vim.lsp.buf.definition()<cr>', opts '[LSP] Go to definition')
           vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts '[LSP] Hover')
           vim.keymap.set('n', 'gs', vim.lsp.buf.references, opts '[LSP] Show references')
           vim.keymap.set('n', 'gi', vim.lsp.buf.type_definition, opts '[LSP] Type definition')
